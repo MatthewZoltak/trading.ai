@@ -74,9 +74,7 @@ function Navbar() {
 
   const navItems = [
     { text: 'Home', url: '/' },
-    { text: 'Move', url: '/move' },
-    { text: 'Activity', url: '/activity' },
-    { text: 'Tax', url: '/tax' },
+    { text: 'Accounts', url: '/accounts' },
   ];
 
   const list = (

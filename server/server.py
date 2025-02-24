@@ -20,7 +20,6 @@ JWT_SECRET = os.getenv("JWT_SECRET")
 ALGORITHM = "HS256"
 
 
-
 async def on_shutdown(app):
     """Gracefully close the database connection on shutdown."""
     await engine.dispose()

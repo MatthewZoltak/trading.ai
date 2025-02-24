@@ -9,6 +9,7 @@ from src.db.db import async_session
 LOGGER = logging.getLogger(__name__)
 LOGGER.setLevel(logging.INFO)
 
+
 async def auth_middleware(app, handler):
     async def middleware_handler(request):
         auth_header = request.headers.get("Authorization")

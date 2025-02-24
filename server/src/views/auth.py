@@ -12,7 +12,7 @@ from src.db.db import async_session
 from src.views.schemas import SignupSchema, LoginSchema, UserSchema
 from sqlalchemy.exc import IntegrityError
 
-from aiohttp_apispec import request_schema, use_kwargs
+from aiohttp_apispec import request_schema
 
 
 LOGGER = logging.getLogger(__name__)
@@ -56,14 +56,12 @@ async def signup(request):
                         {"message": "Email already in use"}, status=409
                     )
                 else:
-                    return web.json_response(
-                        {"message": "Database error"}, status=500
-                    )
+                    return web.json_response({"message": "Database error"}, status=500)
     print(f"Signup Error: {e}")
     return web.json_response({"message": "Signup failed"}, status=500)
 
 
-@use_kwargs(LoginSchema, location=("json"))  # important change!
+@request_schema(LoginSchema)
 async def login(request):
     try:
         validated_data = await request.json()
@@ -83,7 +81,9 @@ async def login(request):
             ):
                 return web.json_response({"message": "Invalid credentials"}, status=401)
 
-            token = generate_token(user.id, request.app["JWT_SECRET"], request.app["ALGORITHM"])
+            token = generate_token(
+                user.id, request.app["JWT_SECRET"], request.app["ALGORITHM"]
+            )
             return web.json_response({"token": token})
 
     except Exception as e:

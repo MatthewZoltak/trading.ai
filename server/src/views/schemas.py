@@ -24,3 +24,7 @@ class UserSchema(Schema):
     name = fields.Str()
     created_at = fields.DateTime(dump_only=True)
     updated_at = fields.DateTime(dump_only=True)
+
+
+class CreateAccountSchema(Schema):
+    name = fields.Str()
