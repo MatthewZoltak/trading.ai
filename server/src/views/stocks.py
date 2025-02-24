@@ -16,7 +16,6 @@ async def search_stocks(request):
             return web.json_response({"error": "Invalid stock symbol or no data found"}, status=404)
 
         last_price = info["Close"].iloc[-1]  # Get latest closing price
-
         return web.json_response({
             "symbol": symbol,
             "name": stock.info.get("shortName", "N/A"),
